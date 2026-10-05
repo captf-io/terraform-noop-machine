@@ -17,21 +17,26 @@
 # Stable per Machine. With no Node behind it, the e2e suite never expects a
 # nodeRef; a real module emits the CCM's or kubelet's format (machine.md).
 output "provider_id" {
-  value = "noop:///${var.captf_object.namespace}/${var.machine_name}"
+  description = "noop:///<namespace>/<machine_name>, stable per Machine. No Node ever carries it."
+  value       = "noop:///${var.captf_object.namespace}/${var.machine_name}"
 }
 
 output "addresses" {
-  value = [{ type = "InternalIP", address = "10.0.0.1" }]
+  description = "One InternalIP, 10.0.0.1."
+  value       = [{ type = "InternalIP", address = "10.0.0.1" }]
 }
 
 output "failure_domain" {
-  value = var.failure_domain
+  description = "The requested failure_domain."
+  value       = var.failure_domain
 }
 
 output "interruptible" {
-  value = false
+  description = "Always false."
+  value       = false
 }
 
 output "health" {
-  value = { state = "running", healthy = true, message = null, reasons = [] }
+  description = "Always running and healthy."
+  value       = { state = "running", healthy = true, message = null, reasons = [] }
 }

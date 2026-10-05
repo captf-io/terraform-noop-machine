@@ -16,10 +16,12 @@
 # and machine.html).
 
 variable "captf_contract" {
-  type = string
+  description = "Contract version the controller generated the root for; always v1alpha1."
+  type        = string
 }
 
 variable "captf_cluster" {
+  description = "The owning CAPI Cluster: name and namespace."
   type = object({
     name      = string
     namespace = string
@@ -27,6 +29,7 @@ variable "captf_cluster" {
 }
 
 variable "captf_object" {
+  description = "The TerraformMachine being reconciled: kind, name and namespace."
   type = object({
     kind      = string
     name      = string
@@ -37,38 +40,46 @@ variable "captf_object" {
 # The cluster module's exports. The controller always sets it; the default
 # follows the contract skeleton (machine.md).
 variable "captf_cluster_outputs" {
-  type    = any
-  default = null
+  description = "The cluster role's exports (backend_id from terraform-noop-cluster). Null by default, following the contract skeleton."
+  type        = any
+  default     = null
 }
 
 variable "captf_tags" {
-  type = map(string)
+  description = "Tags the controller always sets (captf.io/cluster, captf.io/namespace, captf.io/kind, captf.io/name, captf.io/managed-by, captf.io/template); held in terraform_data like every other input."
+  type        = map(string)
 }
 
 variable "machine_name" {
-  type = string
+  description = "The owning CAPI Machine's name; part of the provider ID."
+  type        = string
 }
 
 # Base64 of the bootstrap Secret's value.
 variable "bootstrap_data" {
-  type      = string
-  sensitive = true
+  description = "Base64 of the bootstrap Secret's value. Held, never parsed or delivered."
+  type        = string
+  sensitive   = true
 }
 
 variable "bootstrap_format" {
-  type = string
+  description = "The bootstrap payload's format: cloud-config or ignition."
+  type        = string
 }
 
 variable "failure_domain" {
-  type    = string
-  default = null
+  description = "Machine.spec.failureDomain, returned as the failure_domain output."
+  type        = string
+  default     = null
 }
 
 variable "kubernetes_version" {
-  type    = string
-  default = null
+  description = "Machine.spec.version. Held, otherwise unused."
+  type        = string
+  default     = null
 }
 
 variable "control_plane" {
-  type = bool
+  description = "True for a control-plane Machine. Held, otherwise unused."
+  type        = bool
 }
