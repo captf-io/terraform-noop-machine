@@ -19,12 +19,26 @@ No machine joins a cluster: the endpoint never resolves and no node
 registers, so a Machine reaches `Provisioned` but never gets a `nodeRef`.
 The module exercises the provider, not Kubernetes.
 
-## Using it
+## Usage
 
-Set the module image on the `TerraformMachine`'s `spec.source.image`, e.g.
-`ghcr.io/captf-io/noop-machine:opentofu`. See the
-[CAPTF documentation](https://captf.io/docs/) for installing the provider
-and its clusterctl templates.
+CAPTF runs this module from the module image `ghcr.io/captf-io/noop-machine`: set the image on
+a `TerraformMachine`'s `spec.source.image` (through a `TerraformMachineTemplate`), and the controller renders every
+input. The module is also published to the Terraform Registry as
+`captf-io/machine/noop` and can be called directly:
+
+```hcl
+module "machine" {
+  source  = "captf-io/machine/noop"
+  version = "~> 0.1"
+
+  # The contract inputs the controller would render (captf_contract,
+  # captf_cluster, captf_object, captf_tags, ...; see Inputs), and any
+  # user variables.
+}
+```
+
+It needs no providers and no credentials, which makes it a convenient
+fixture for testing a configuration that drives CAPTF modules.
 
 ## Development
 
