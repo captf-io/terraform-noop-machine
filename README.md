@@ -35,9 +35,9 @@ state and outputs are real and no cloud account is needed. Use it to try
 CAPTF without a cloud account, to exercise a management cluster, as the
 provider's e2e target, or as a starting point for a real module.
 
-The module image `ghcr.io/captf-io/noop-machine` is built and published from
-[noop-modules](https://github.com/captf-io/noop-modules); this repository
-holds the code and its checks.
+The module image `ghcr.io/captf-io/module-images/noop-machine` is built and published by
+[module-images](https://github.com/captf-io/module-images) from this repository's releases. This
+repository holds the code and its checks.
 
 ## What it returns
 
@@ -49,7 +49,7 @@ The module exercises the provider, not Kubernetes.
 
 ## Using it
 
-CAPTF runs this module from the module image `ghcr.io/captf-io/noop-machine`:
+CAPTF runs this module from the module image `ghcr.io/captf-io/module-images/noop-machine`:
 set the image on a `TerraformMachine`'s `spec.source.image` (through a
 `TerraformMachineTemplate`), and the controller renders every input. The module
 is also published to the Terraform Registry as `captf-io/machine/noop` and can
